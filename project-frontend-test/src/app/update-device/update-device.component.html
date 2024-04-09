@@ -1,0 +1,137 @@
+<div
+  class="row justify-content-center align-items-center"
+  style="margin-bottom: 120px"
+>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-4">
+          Atualizar dispositvo código {{ device.id }}
+        </h3>
+        <div>
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+          <div *ngIf="message" class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+          <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <div class="spinner-border" role="status"></div>
+          </div>
+          <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+            <div class="form-group">
+              <label for="manufacturer">Fabricante:</label>
+              <input
+                type="text"
+                placeholder="Insira o fabricante do aparelho"
+                formControlName="manufacturer"
+                class="form-control"
+                id="manufacturer"
+                [(ngModel)]="device.manufacturer"
+              />
+              <div
+                *ngIf="
+                  formGroup.get('manufacturer')?.invalid &&
+                  (formGroup.get('manufacturer')?.dirty ||
+                    formGroup.get('manufacturer')?.touched)
+                "
+              >
+                <div
+                  *ngIf="formGroup.get('manufacturer')?.hasError('required')"
+                  class="validation-message"
+                >
+                  O fabricante é obrigatório.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Descrição:</label>
+              <input
+                type="text"
+                placeholder="Insira a descrição do aparelho"
+                formControlName="description"
+                class="form-control"
+                id="description"
+                [(ngModel)]="device.description"
+              />
+              <div
+                *ngIf="
+                  formGroup.get('description')?.invalid &&
+                  (formGroup.get('description')?.dirty ||
+                    formGroup.get('description')?.touched)
+                "
+              >
+                <div
+                  *ngIf="formGroup.get('description')?.hasError('required')"
+                  class="validation-message"
+                >
+                  A descrição é obrigatória.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="informationAccess">Informações de acesso</label>
+              <textarea
+                placeholder="Informações de acesso"
+                formControlName="informationAccess"
+                class="form-control"
+                id="informationAccess"
+                rows="3"
+                [(ngModel)]="device.informationAccess"
+              ></textarea>
+              <div
+                *ngIf="
+                  formGroup.get('informationAccess')?.invalid &&
+                  (formGroup.get('informationAccess')?.dirty ||
+                    formGroup.get('informationAccess')?.touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    formGroup.get('informationAccess')?.hasError('required')
+                  "
+                  class="validation-message"
+                >
+                  Informações de acesso é obrigatório.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="commandList">Lista de comandos</label>
+              <textarea
+                placeholder="Lista de comandos"
+                formControlName="commandList"
+                class="form-control"
+                id="commandList"
+                rows="3"
+                [(ngModel)]="device.commandList"
+              ></textarea>
+              <div
+                *ngIf="
+                  formGroup.get('commandList')?.invalid &&
+                  (formGroup.get('commandList')?.dirty ||
+                    formGroup.get('commandList')?.touched)
+                "
+              >
+                <div
+                  *ngIf="formGroup.get('commandList')?.hasError('required')"
+                  class="validation-message"
+                >
+                  Lista de comandos é obrigatória.
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-primary btn-block">
+                Enviar
+              </button>
+              <button type="reset" class="btn btn-danger btn-block">
+                Limpar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

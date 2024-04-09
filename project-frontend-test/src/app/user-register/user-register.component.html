@@ -1,0 +1,84 @@
+<div class="row justify-content-center align-items-center" style="height: 80vh">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-4">Registro de usuário</h3>
+        <div>
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+          <div *ngIf="message" class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+          <div class="d-flex justify-content-center" *ngIf="loading">
+            <div class="spinner-border" role="status"></div>
+          </div>
+          <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+            <div class="form-group">
+              <label for="username">Usuário:</label>
+              <input
+                type="text"
+                placeholder="Seu usuário"
+                formControlName="username"
+                class="form-control"
+                id="username"
+                aria-labelledby="username-label"
+                [(ngModel)]="user.username"
+              />
+              <div
+                *ngIf="
+                  formGroup.get('username')?.invalid &&
+                  formGroup.get('username')?.touched
+                "
+              >
+                <div
+                  *ngIf="formGroup.get('username')?.hasError('required')"
+                  class="validation-message"
+                >
+                  Seu nome de usuário é obrigatório.
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Senha:</label>
+              <input
+                type="password"
+                placeholder="Sua senha"
+                formControlName="password"
+                class="form-control"
+                id="password"
+                aria-labelledby="password-label"
+                [(ngModel)]="user.password"
+              />
+              <div
+                *ngIf="
+                  formGroup.get('password')?.invalid &&
+                  formGroup.get('password')?.touched
+                "
+              >
+                <div
+                  *ngIf="formGroup.get('password')?.hasError('required')"
+                  class="validation-message"
+                >
+                  Senha é obrigatória.
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-4">
+              <button type="submit" class="btn btn-primary btn-block">
+                Enviar
+              </button>
+              <button type="reset" class="btn btn-danger btn-block">
+                Limpar
+              </button>
+            </div>
+            <div class="mt-4 d-flex align-items-center">
+              <p class="mb-0 mr-3">Já possui uma conta?&nbsp;</p>
+              <a routerLink="/login">Realizar login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

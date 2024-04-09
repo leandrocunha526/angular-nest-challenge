@@ -1,0 +1,28 @@
+<div class="container">
+  <h3 class="mt-4">Detalhes do aparelho código: {{ device.id }}</h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-header">Informações do dispositivo</div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Fabricante:</strong> {{ device.manufacturer }}
+            </li>
+            <li class="list-group-item">
+              <strong>Descrição:</strong> {{ device.description }}
+            </li>
+            <li class="list-group-item">
+              <strong>Informação de acesso:</strong>
+              {{ device.informationAccess }}
+            </li>
+            <li class="list-group-item">
+              <strong>Lista de comandos:</strong> {{ device.commandList }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2>Dashboard</h2>
+    <div *ngIf="message" class="alert alert-success" role="alert">
+      {{ message }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Pesquisar Dispositivos</h2>
+    <div class="form-group">
+      <label for="searchQuery">Pesquisa</label>
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Digite algo para pesquisar"
+          class="form-control"
+          id="searchQuery"
+          [(ngModel)]="searchQuery"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="onSearchInput()"
+          >
+            <i class="fas fa-search"></i> Pesquisar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<div class="row" style="margin-bottom: 120px">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Fabricante</th>
+            <th>Descrição</th>
+            <th>Informação de acesso</th>
+            <th>Lista de comandos</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of devices">
+            <td>{{ device.id }}</td>
+            <td>{{ device.manufacturer }}</td>
+            <td>{{ device.description }}</td>
+            <td>{{ device.informationAccess }}</td>
+            <td>{{ device.commandList }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                type="button"
+                (click)="deleteDevice(device.id)"
+              >
+                Excluir
+              </button>
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="details(device.id)"
+              >
+                Detalhar
+              </button>
+              <button
+                class="btn btn-warning"
+                type="button"
+                (click)="update(device.id)"
+              >
+                Atualizar
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="devices && devices.length === 0">
+            <td colspan="7" class="text-center">
+              Nenhum dispositivo encontrado.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning">
+        <strong
+          >Estes dispositivos foram cadastrados por você! Não são listados
+          dispositivos de outras pessoas.</strong
+        >
+      </div>
+    </div>
+  </div>
+</div>
