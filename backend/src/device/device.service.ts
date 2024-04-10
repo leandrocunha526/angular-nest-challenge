@@ -100,16 +100,22 @@ export class DeviceService {
             const devices = await this.deviceRepository.find({
                 where: [
                     {
-                        user: userId,
+                        user: { id: userId }, // Filtrando explicitamente pelo ID do usuário
                         manufacturer: ILike(`%${query}%`),
                     },
-                    { user: userId, description: ILike(`%${query}%`) },
                     {
-                        user: userId,
+                        user: { id: userId },
+                        description: ILike(`%${query}%`),
+                    },
+                    {
+                        user: { id: userId },
                         informationAccess: ILike(`%${query}%`),
                     },
-                    { user: userId, commandList: ILike(`%${query}%`) },
-                ], // desative case sentive
+                    {
+                        user: { id: userId },
+                        commandList: ILike(`%${query}%`),
+                    },
+                ],
             });
             return devices;
         } catch (error) {
