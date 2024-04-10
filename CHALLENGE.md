@@ -21,7 +21,7 @@
 
 - Criado um template simples, intuitivo com alerts coloridos e funcional pensando em responsividade.
 - Modificando framework já existente para agilizar o desenvolvimento da aplicação deixando com visual mais moderno.
-- Desenvolvido pensando em segurança e confidencialidade, todos os dados não vistos por outros usuários e há segurança entre rotas. Quem faz o trabalho de verificação do usuário é o backend desenvolvido.
+- Desenvolvido pensando em segurança e confidencialidade, todos os dados não são vistos por outros usuários e há segurança entre rotas. Quem faz o trabalho de verificação do usuário é o backend desenvolvido.
 - Há manipulação de erros e validação do que é inserido em formulários.
 - Introduzido carregamento de página.
 - Introduzido ORM e migrações para banco de dados relacionais.
@@ -36,4 +36,6 @@ Um DTO é um padrão de projeto usado para transferir dados entre subsistemas de
 Em vez de transferir entidades diretamente entre camadas ou componentes da aplicação, é comum usar DTOs para encapsular apenas os dados necessários para uma operação específica.
 DTOs são frequentemente usados em arquiteturas em camadas, como no padrão MVC (Model-View-Controller) ou em aplicações cliente-servidor, para separar a lógica de negócios da lógica de apresentação e comunicação.
 Por exemplo, ao enviar dados de um formulário HTML para o servidor, em vez de enviar a entidade diretamente, você pode criar um DTO específico para os dados do formulário e enviá-lo para o servidor. Isso permite maior flexibilidade e controle sobre quais dados estão sendo transferidos.
+
+- A segurança foi reforçada em buscas que faz filtro por id de usuário.
 
