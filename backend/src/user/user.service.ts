@@ -64,6 +64,7 @@ export class UserService {
     }
 
     async update(id: number, updateUserDto: UpdateUserDTO) {
+<<<<<<< HEAD
         const { username, password } = updateUserDto;
 
         const userToUpdate = await this.userRepository.findOne({
@@ -101,6 +102,27 @@ export class UserService {
             };
         } catch (error) {
             throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+=======
+        const user = await this.userRepository.findOne({ where: { id: id } });
+        if (!user) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        const { username, password } = updateUserDto;
+
+        const hashedPassword = await argon2.hash(password);
+
+        user.username = username;
+        user.password = hashedPassword;
+
+        try {
+            await this.userRepository.save(user);
+            return {
+                id: user.id,
+                username: user.username,
+            };
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.BAD_REQUEST);
+>>>>>>> bd3c9b7592534ccac0defad11a06fb3a8c0e640f
         }
     }
 }
