@@ -16,6 +16,7 @@ import { DevicesDetailComponent } from './devices-detail/devices-detail.componen
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UpdateDeviceComponent } from './update-device/update-device.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
     UserProfileComponent,
     UpdateDeviceComponent,
     ConfirmationModalComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,

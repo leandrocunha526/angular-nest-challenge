@@ -72,6 +72,19 @@ export class AuthService {
       );
   }
 
+  updateUser(id: number, user: User): Observable<Object> {
+    return this.http
+      .put(`${this.API_URL}/user/update/${id}`, user, {
+        headers: this.isAuthenticated(),
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Erro ao obter o usuário', error);
+          return throwError(error);
+        })
+      );
+  }
+
   isAuthenticated(): HttpHeaders {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem(this.TOKEN_KEY)}`,
