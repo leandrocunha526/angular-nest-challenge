@@ -72,17 +72,22 @@ export class UserController {
         @Res() res: Response,
     ) {
         try {
-            const edit = this.userService.update(user.id, updateUserDto);
-            return res.status(HttpStatus.OK).json({
-                message: 'User has been updated successfully',
-                success: true,
-                user: edit,
-            });
+            const edit = await this.userService.update(user.id, updateUserDto);
+            if (!edit) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    message: 'Error 400: Bad Request',
+                    success: false,
+                });
+            } else {
+                return res.status(HttpStatus.CREATED).json({
+                    message: 'The user has been updated successfully',
+                    success: true,
+                });
+            }
         } catch (error) {
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
                 message: 'Error 500: Internal Server Error',
                 success: false,
-                user: {},
             });
             console.log(error);
         }

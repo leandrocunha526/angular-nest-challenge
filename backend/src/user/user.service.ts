@@ -64,25 +64,43 @@ export class UserService {
     }
 
     async update(id: number, updateUserDto: UpdateUserDTO) {
-        const user = await this.userRepository.findOne({ where: { id: id } });
-        if (!user) {
-            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-        }
         const { username, password } = updateUserDto;
 
-        const hashedPassword = await argon2.hash(password);
+        const userToUpdate = await this.userRepository.findOne({
+            where: { id },
+        });
+        if (!userToUpdate) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
 
-        user.username = username;
-        user.password = hashedPassword;
+        // Check if the username is already taken
+        const existingUser = await this.userRepository.findOne({
+            where: {
+                username: username,
+            },
+        });
+        if (existingUser && existingUser.id !== userToUpdate.id) {
+            throw new HttpException(
+                'User already exists',
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        // Check if the password is provided and different from the existing one
+        if (password && password !== userToUpdate.password) {
+            userToUpdate.password = await argon2.hash(password);
+        }
+
+        userToUpdate.username = username;
 
         try {
-            await this.userRepository.save(user);
+            await this.userRepository.save(userToUpdate);
             return {
-                id: user.id,
-                username: user.username,
+                id: userToUpdate.id,
+                username: userToUpdate.username,
             };
         } catch (error) {
-            throw new HttpException(error, HttpStatus.BAD_REQUEST);
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
