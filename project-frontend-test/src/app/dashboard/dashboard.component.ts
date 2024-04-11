@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   errorMessage: string = '';
   message: string = '';
   searchQuery: string;
+  deviceIdToDelete: string = '';
 
   constructor(private devicesService: DevicesService, private route: Router) {}
 
@@ -50,6 +51,32 @@ export class DashboardComponent implements OnInit {
         this.errorMessage = 'Erro ao excluir dispositivo';
       }
     );
+  }
+
+  openConfirmationModal(deviceId: string) {
+    this.deviceIdToDelete = deviceId;
+    const modal = document.getElementById('confirmationModal');
+    if (modal) {
+      (window as any).$(modal).modal('show');
+    }
+  }
+
+  confirmDelete() {
+    if (this.deviceIdToDelete) {
+      this.deleteDevice(this.deviceIdToDelete);
+      this.deviceIdToDelete = null;
+      const modal = document.getElementById('confirmationModal');
+      if (modal) {
+        (window as any).$(modal).modal('hide');
+      }
+    }
+  }
+
+  cancelDelete() {
+    const modal = document.getElementById('confirmationModal');
+    if (modal) {
+      (window as any).$(modal).modal('hide');
+    }
   }
 
   details(id: string) {

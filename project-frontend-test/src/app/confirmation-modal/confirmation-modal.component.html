@@ -1,0 +1,28 @@
+<div class="modal" tabindex="-1" role="dialog" id="confirmationModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar exclusão</h5>
+      </div>
+      <div class="modal-body">
+        Tem certeza de que deseja excluir este dispositivo?
+        <div class="alert alert-danger">
+          <p><strong>Aviso! </strong>Esta ação é irreversível.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="cancelDelete()"
+        >
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
