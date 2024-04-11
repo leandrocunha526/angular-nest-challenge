@@ -1,7 +1,10 @@
 export class User {
-  username!: string;
-  password!: string;
-  constructor(username: string, password: string) {
+  id?: number;
+  username: string;
+  password: string;
+
+  constructor(username: string, password: string, id?: number) {
+    this.id = id;
     this.username = username;
     this.password = password;
   }

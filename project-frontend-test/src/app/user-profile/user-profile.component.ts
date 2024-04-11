@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserProfile } from '../classes/userProfile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,7 +11,7 @@ import { UserProfile } from '../classes/userProfile';
 export class UserProfileComponent implements OnInit {
   user: UserProfile;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.getUserProfile();
@@ -25,5 +26,8 @@ export class UserProfileComponent implements OnInit {
         console.log('Erro ao obter perfil do usuário:', error);
       }
     );
+  }
+  goToUpdateUser() {
+    this.router.navigate(['profile-update']);
   }
 }

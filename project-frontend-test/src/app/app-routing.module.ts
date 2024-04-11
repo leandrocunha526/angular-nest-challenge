@@ -9,6 +9,7 @@ import { DeviceRegisterComponent } from './device-register/device-register.compo
 import { UpdateDeviceComponent } from './update-device/update-device.component';
 import { DevicesDetailComponent } from './devices-detail/devices-detail.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -38,6 +39,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile-update',
+    component: UpdateUserComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'home' },

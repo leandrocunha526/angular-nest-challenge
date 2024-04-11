@@ -1,0 +1,25 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-container {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.btn-update {
+  display: block;
+  margin-top: 20px;
+}
+
+.profile-not-found {
+  margin-top: 20px;
+  color: #c00;
+}

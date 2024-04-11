@@ -1,12 +1,11 @@
 import { User } from './user';
 
 export class Devices {
-  id?: string;
-  manufacturer?: string;
-  description?: string;
-  informationAccess?: string;
-  commandList?: string;
-
+  id!: string;
+  manufacturer!: string;
+  description!: string;
+  informationAccess!: string;
+  commandList!: string;
   constructor(
     id?: string,
     manufacturer?: string,

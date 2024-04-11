@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -60,5 +61,51 @@ export class UserService {
             id: user.id,
             username: user.username,
         };
+    }
+
+    async update(id: number, updateUserDto: UpdateUserDTO) {
+        const { username, password } = updateUserDto;
+
+        const userToUpdate = await this.userRepository.findOne({
+            where: { id },
+        });
+        if (!userToUpdate) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+
+        // Check if the username is already taken
+        const existingUser = await this.userRepository.findOne({
+            where: {
+                username: username,
+            },
+        });
+        if (existingUser && existingUser.id !== userToUpdate.id) {
+            throw new HttpException(
+                'User already exists',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                /*
+                The 'username' field is required to be unique, and attempting to insert a duplicate
+                value results in a violation of the database server's uniqueness constraint,
+                 triggering an internal server error.
+                */
+            );
+        }
+
+        // Check if the password is provided and different from the existing one
+        if (password && password !== userToUpdate.password) {
+            userToUpdate.password = await argon2.hash(password);
+        }
+
+        userToUpdate.username = username;
+
+        try {
+            await this.userRepository.save(userToUpdate);
+            return {
+                id: userToUpdate.id,
+                username: userToUpdate.username,
+            };
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

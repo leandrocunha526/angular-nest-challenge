@@ -94,7 +94,7 @@ export class DeviceService {
     async searchDevices(userId: any, query: string) {
         try {
             console.log(
-                `Searching devices for user ${userId} with manufacturer ${query}`,
+                `Searching devices for user ${userId} by ${query}`,
             );
 
             const devices = await this.deviceRepository.find({
