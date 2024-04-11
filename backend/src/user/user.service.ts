@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
 import { UserEntity } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -60,5 +61,28 @@ export class UserService {
             id: user.id,
             username: user.username,
         };
+    }
+
+    async update(id: number, updateUserDto: UpdateUserDTO) {
+        const user = await this.userRepository.findOne({ where: { id: id } });
+        if (!user) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
+        const { username, password } = updateUserDto;
+
+        const hashedPassword = await argon2.hash(password);
+
+        user.username = username;
+        user.password = hashedPassword;
+
+        try {
+            await this.userRepository.save(user);
+            return {
+                id: user.id,
+                username: user.username,
+            };
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.BAD_REQUEST);
+        }
     }
 }
