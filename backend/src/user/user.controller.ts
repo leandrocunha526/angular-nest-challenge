@@ -7,6 +7,7 @@ import {
     UseGuards,
     Request,
     Get,
+    Put,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -17,6 +18,7 @@ import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import AuthUser from 'src/common/decorators/auth-user.decorator';
 import { UserEntity } from './entities/user.entity';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @Controller('user')
@@ -60,5 +62,29 @@ export class UserController {
     @Get('profile')
     async profile(@AuthUser() user: UserEntity) {
         return user;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put('update/:id')
+    async update(
+        @AuthUser() user: UserEntity,
+        @Body() updateUserDto: UpdateUserDTO,
+        @Res() res: Response,
+    ) {
+        try {
+            const edit = this.userService.update(user.id, updateUserDto);
+            return res.status(HttpStatus.OK).json({
+                message: 'User has been updated successfully',
+                success: true,
+                user: edit,
+            });
+        } catch (error) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: 'Error 500: Internal Server Error',
+                success: false,
+                user: {},
+            });
+            console.log(error);
+        }
     }
 }
