@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private authService: AuthService
   ) {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
           if (error instanceof HttpErrorResponse) {
             console.log('Status:', error.status);
             console.error('Erro:', error.error);
-            if (error.status === 400) {
+            if (error.status === 400 || error.status === 401) {
               this.errorMessage = 'Usuário ou senha incorretos';
             } else {
               this.errorMessage =

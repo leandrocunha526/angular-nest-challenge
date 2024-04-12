@@ -85,6 +85,19 @@ export class AuthService {
       );
   }
 
+  delete(): Observable<Object> {
+    return this.http
+      .delete(`${this.API_URL}/user/delete`, {
+        headers: this.isAuthenticated(),
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Erro ao obter o usuário', error);
+          return throwError(error);
+        })
+      );
+  }
+
   isAuthenticated(): HttpHeaders {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem(this.TOKEN_KEY)}`,
