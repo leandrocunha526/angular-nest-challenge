@@ -108,4 +108,19 @@ export class UserService {
             throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    async delete(id: number) {
+        try {
+            const user = await this.userRepository.findOne({
+                where: { id: id },
+            });
+            if (!user) {
+                throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+            }
+            const deleteResult = await this.userRepository.remove(user);
+            return deleteResult;
+        } catch (error) {
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

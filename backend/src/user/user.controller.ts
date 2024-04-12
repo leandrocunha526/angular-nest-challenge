@@ -8,6 +8,7 @@ import {
     Request,
     Get,
     Put,
+    Delete,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -81,6 +82,31 @@ export class UserController {
             } else {
                 return res.status(HttpStatus.CREATED).json({
                     message: `The user code ${user.id} has been updated successfully`,
+                    success: true,
+                });
+            }
+        } catch (error) {
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: 'Error 500: Internal Server Error',
+                success: false,
+            });
+            console.log(error);
+        }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete('delete')
+    async delete(@AuthUser() user: UserEntity, @Res() res: Response) {
+        try {
+            const deleted = await this.userService.delete(user.id);
+            if (!deleted) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    message: 'Error 400: Bad Request',
+                    success: false,
+                });
+            } else {
+                return res.status(HttpStatus.OK).json({
+                    message: `The user code ${user.id} has been deleted successfully`,
                     success: true,
                 });
             }
