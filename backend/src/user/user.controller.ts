@@ -80,7 +80,7 @@ export class UserController {
                     success: false,
                 });
             } else {
-                return res.status(HttpStatus.CREATED).json({
+                return res.status(HttpStatus.OK).json({
                     message: `The user code ${user.id} has been updated successfully`,
                     success: true,
                 });

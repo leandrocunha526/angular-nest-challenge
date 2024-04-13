@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           if (error instanceof HttpErrorResponse) {
             console.log('Status:', error.status);
             console.error('Erro:', error.error);
-            if (error.status === 400 || error.status === 401) {
+            if (error.status === 401) {
               this.errorMessage = 'Usuário ou senha incorretos';
             } else {
               this.errorMessage =

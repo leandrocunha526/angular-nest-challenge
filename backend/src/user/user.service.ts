@@ -23,7 +23,10 @@ export class UserService {
                 return user;
             }
         } else {
-            throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+            throw new HttpException(
+                'Error 401 UNAUTHORIZED: User not found',
+                HttpStatus.UNAUTHORIZED,
+            );
         }
     }
 
