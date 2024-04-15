@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  angular_dashboard:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./src/app
+    ports:
+      - 4200:4200
