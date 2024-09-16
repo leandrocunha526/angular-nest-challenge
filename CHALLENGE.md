@@ -27,6 +27,7 @@
 - Introduzido ORM e migrações para banco de dados relacionais.
 - Auth guard para Angular e JWT Guard para Nest, Auth Guard para Angular e o JWT Guard para Nest são ambos mecanismos de segurança utilizados em aplicações web para proteger rotas e recursos de acesso não autorizado. O Auth Guard para Angular é uma funcionalidade que permite controlar o acesso às rotas da aplicação no lado do cliente. Ele verifica se o usuário possui as credenciais necessárias para acessar determinada rota e, caso contrário, redireciona o usuário para outra página, como uma página de login.
 - Conceito de DTO e entidade:
+
 1. Entidade:
 No contexto de desenvolvimento de software, uma entidade é uma representação de um objeto do mundo real que é persistido em um banco de dados ou manipulado dentro de uma aplicação.
 Uma entidade geralmente corresponde a uma tabela em um banco de dados relacional. Ela contém atributos (campos) que descrevem as características do objeto e métodos que definem seu comportamento.
@@ -38,4 +39,3 @@ DTOs são frequentemente usados em arquiteturas em camadas, como no padrão MVC 
 Por exemplo, ao enviar dados de um formulário HTML para o servidor, em vez de enviar a entidade diretamente, você pode criar um DTO específico para os dados do formulário e enviá-lo para o servidor. Isso permite maior flexibilidade e controle sobre quais dados estão sendo transferidos.
 
 - A segurança foi reforçada em buscas que faz filtro por id de usuário.
-
